@@ -7,15 +7,23 @@
         <div class="tweet">
             <img class="avatar" src="{{items['authorProfilePicture']}}" title="{{items['query']}}">
             <a href="{{items['twitterAuthorLink']}}" target="_blank" class="name">{{items['name']}}</a> <a href="{{items['twitterAuthorLink']}}" target="_blank" class="twname">@{{items['twitterName']}}</a><a href="{{items['twitterAuthorLink']}}/status/{{items['id']}}" target="_blank" class="time">{{items['time']}}</a><br />
-            <p class="tweetText">{{items['full_text']|raw}}</p>
+            {% if items['RT'] %}
+                <div class="rtOrigin">
+                    <strong>RT</strong> from <a href="{{items['originRetweetAuthorLink']}}" target="_blank" class="name">{{items['originRetweetAuthorName']}}</a> <a href="{{items['originRetweetAuthorLink']}}" target="_blank" class="twname">@{{items['originRetweetAuthorTwitterName']}}</a>
+                </div>
+            {% endif %}
+            <p class="tweetText">
+                {{items['full_text']|raw}}
+            </p>
             {% if items['quoted_status'] is defined %}
-                <div class="retweet"><a href="{{items['retweetAuthorLink']}}" target="_blank" class="name">{{items['retweetAuthorName']}}</a> <a href="{{items['retweetAuthorLink']}}" target="_blank" class="twname">@{{items['retweetAuthorName']}}</a><p>
-                    <a href="{{items['retweetAuthorTwitterName']}}" target="_blank" class="twname">{{items['quoted_status']['full_text']|raw}}</a></p>
-                {% if items['mediaTw'] is defined %}
-                    {% for medium in items['quoted_status']['entities']['media'] %}
-                        <img src="{{medium['media_url_https']}}" class="pictureRT">
-                    {% endfor %}
-                {% endif %}
+                <div class="retweet">
+                    <a href="{{items['retweetAuthorLink']}}" target="_blank" class="name">{{items['retweetAuthorName']}}</a> <a href="{{items['retweetAuthorLink']}}" target="_blank" class="twname">@{{items['retweetAuthorName']}}</a><p>
+                    <a href="{{items['quoted_status']['link']}}" target="_blank" class="twname">{{items['quoted_status']['full_text']|raw}}</a></p>
+                    {% if items['mediaTw'] is defined %}
+                        {% for medium in items['quoted_status']['entities']['media'] %}
+                            <img src="{{medium['media_url_https']}}" class="pictureRT">
+                        {% endfor %}
+                    {% endif %}
                 </div>
             {% endif %}
             {% if items['media'] is defined and items['mediaTwitems'] is not defined %}
