@@ -13,4 +13,5 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
-/web/bundles/
+/node_modules
+/web/www/*

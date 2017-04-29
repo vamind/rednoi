@@ -1,0 +1,36 @@
+{
+  "name": "rednoi",
+  "version": "1.0.0",
+  "description": "rednoi ======",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petrvacha/rednoi.git"
+  },
+  "keywords": [
+    "rednoi",
+    "twitter"
+  ],
+  "author": "Petr Vácha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petrvacha/rednoi/issues"
+  },
+  "homepage": "https://github.com/petrvacha/rednoi#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "concat": "^1.0.3",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-notify": "^3.0.0",
+    "gulp-size": "^2.1.0",
+    "gulp-strip-css-comments": "^1.2.0",
+    "gulp-uglify": "^2.1.2",
+    "jquery": "^3.2.1",
+    "twemoji": "^2.2.5"
+  }
+}
