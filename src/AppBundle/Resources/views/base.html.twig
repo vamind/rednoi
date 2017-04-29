@@ -5,16 +5,26 @@
     <title>{% block title %}Rednoi{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//twemoji.maxcdn.com/twemoji.min.js"></script>
     <style>
         html, body {
             font-family: Verdana,sans-serif;
             font-size: 16px;
             line-height: 1.5;
+            background-color: #f5f8fa;
         }
         #wrapper {width: 800px; margin: 0 auto;}
-        .tweet {}
+        .tweet {
+            background: #fff;
+            border-left: 1px solid #e6ecf0;
+            border-right: 1px solid #e6ecf0;
+            background-clip: padding-box;
+            padding: 9px 12px;
+            border-bottom: 1px solid #e6ecf0;
+        }
         .tweetText {margin-left: 70px; margin-top: 3px;}
+        .emoji {height: 17px;}
         .retweet {margin-left: 100px;
             border: #8899a6 solid 1px;
             padding: 5px 10px 5px 10px;
@@ -30,11 +40,10 @@
         .tweetText a:hover {text-decoration: underline}
         .name {font-weight: bold; color: #292f33; text-decoration: none; }
         .twname {font-size: 13px; color: #8899a6; text-decoration: none; }
-        .picture {padding-left: 70px; max-width: 730px}
-        .pictureRT {max-width: 677px}
+        .picture {padding-left: 70px; max-width: 705px}
+        .pictureRT {max-width: 650px}
         .time {float: right; font-size: 13px; color: #8899a6; text-decoration: none;}
-        .rtOrigin {font-size: 12px;}
-        .rtOrigin strong {color: #0099ff;}
+        .rtOrigin {font-size: 12px; color: #0099ff;}
     </style>
 </head>
 <body>

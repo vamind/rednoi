@@ -133,9 +133,10 @@ class TwitterAPIService {
     private function processTweet($text, $retweet = FALSE) : string {
         if (!$retweet) {
             $text = preg_replace('/https?:\/\/t\.co\/[^\s]+/', '', $text);
-            $text = preg_replace('/([^\/])?@([^\s\,\!\?\)]+[^\s\,\!\?\)\.]+)/', '\1<a href="https://twitter.com/\2" class="at" target="_blank">@</a><a href="https://twitter.com/\2" target="_blank">\2</a>', $text);
+            $text = preg_replace('/([^\/])@([^\s\,\!\?\)\”]+[^\s\,\!\?\)\.\”]+)/', '\1<a href="https://twitter.com/\2" class="at" target="_blank">@</a><a href="https://twitter.com/\2" target="_blank">\2</a>', $text);
         }
-        $text = preg_replace('/(\s)+(http:\/\/|https:\/\/)(www\.)?([^\s]+)/', '\1<a href="\2\3\4" target="_blank">\4</a>', $text);
+
+        $text = preg_replace('/([\s\:])+(http:\/\/|https:\/\/)(www\.)?([^\s]+)/', '\1<a href="\2\3\4" target="_blank">\4</a>', $text);
         return $text;
     }
 }

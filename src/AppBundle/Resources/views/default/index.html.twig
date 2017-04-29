@@ -17,8 +17,12 @@
             </p>
             {% if items['quoted_status'] is defined %}
                 <div class="retweet">
-                    <a href="{{items['retweetAuthorLink']}}" target="_blank" class="name">{{items['retweetAuthorName']}}</a> <a href="{{items['retweetAuthorLink']}}" target="_blank" class="twname">@{{items['retweetAuthorName']}}</a><p>
-                    <a href="{{items['quoted_status']['link']}}" target="_blank" class="twname">{{items['quoted_status']['full_text']|raw}}</a></p>
+                    <a href="{{items['retweetAuthorLink']}}" target="_blank" class="name">{{items['retweetAuthorName']}}</a>
+                    <a href="{{items['retweetAuthorLink']}}" target="_blank" class="twname">@{{items['retweetAuthorName']}}</a>
+                    <a href="{{items['quoted_status']['link']}}" target="_blank"></a>
+                    <p>
+                        {{items['quoted_status']['full_text']|raw}}
+                    </p>
                     {% if items['mediaTw'] is defined %}
                         {% for medium in items['quoted_status']['entities']['media'] %}
                             <img src="{{medium['media_url_https']}}" class="pictureRT">
@@ -29,7 +33,6 @@
             {% if items['media'] is defined and items['mediaTwitems'] is not defined %}
                 <img src="{{ items['media'] }}" class="picture">
             {% endif %}
-            <hr/>
         </div>
     {% endfor %}
 </div>
