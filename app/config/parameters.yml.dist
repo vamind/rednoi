@@ -4,7 +4,7 @@
 parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    twitter.access
+    twitter.access:
         oauth_access_token: ~
         oauth_access_token_secret: ~
         consumer_key: ~
