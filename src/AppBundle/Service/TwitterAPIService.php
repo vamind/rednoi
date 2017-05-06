@@ -60,7 +60,12 @@ class TwitterAPIService {
                     if (isset($items['quoted_status']['entities']['media'])) {
                         $items['mediaTw'] = $items['quoted_status']['entities']['media'][0]["media_url_https"];
                     }
-                    $items['quoted_status']['full_text'] = TwitterText::processTweet($items['quoted_status']['full_text'], TRUE);
+
+                    foreach ($items['quoted_status']['entities']['urls'] as $url) {
+                        $items['quoted_status']['full_text'] = str_replace($url['url'], $url['expanded_url'], $items['quoted_status']['full_text']);
+                    }
+
+                    $items['quoted_status']['full_text'] = TwitterText::processTweet($items['quoted_status']['full_text']);
                     $items['quoted_status']['link'] = $items['retweetAuthorLink'] . "/status/" . $items['quoted_status']['id_str'];
                 }
 
@@ -89,7 +94,8 @@ class TwitterAPIService {
                 } else {
                     $items['RT'] = FALSE;
                 }
-                $items['full_text'] = TwitterText::processTweet($items['full_text']);
+
+                $items['full_text'] = TwitterText::processTweet($items['full_text'], TRUE);
                 $mergedArray[$items['id']] = $items;
             }
         }
