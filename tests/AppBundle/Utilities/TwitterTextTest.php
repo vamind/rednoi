@@ -45,6 +45,11 @@ class TwitterTextTest extends \PHPUnit_Framework_TestCase {
 
 
             ['https://twitter.com/BarackObama/status/859855649689174019', TRUE, ''],
+
+            ['https://www.rednoi.net/?utm_medium=flow&red=true&article_id=5456#omg&utm_medium=email', FALSE, '<a href="https://www.rednoi.net/?red=true&article_id=5456#omg" target="_blank">rednoi.net/?red=true&article_id=5456#omg</a>'],
+            ['https://www.rednoi.net/?articleid=1235&utm_medium=flow&utm_medium=email', FALSE, '<a href="https://www.rednoi.net/?articleid=1235" target="_blank">rednoi.net/?articleid=1235</a>'],
+            ['https://www.rednoi.net/?utm_medium=flow&articleid=1235&utm_medium=email', FALSE, '<a href="https://www.rednoi.net/?articleid=1235" target="_blank">rednoi.net/?articleid=1235</a>'],
+            ['https://www.rednoi.net/?utm_medium=encoding%20space%20works&encoding=works%20also', FALSE, '<a href="https://www.rednoi.net/?encoding=works%20also" target="_blank">rednoi.net/?encoding=works%20also</a>'],
         ];
     }
 
