@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\AppBundle\Utilities\TwitterText;
+namespace tests\AppBundle\Utilities;
 
 use AppBundle\Utilities\TwitterText;
 
