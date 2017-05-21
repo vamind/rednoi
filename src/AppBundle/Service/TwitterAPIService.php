@@ -52,6 +52,10 @@ class TwitterAPIService {
                 $items['time'] = TwitterText::timeSince($items['created_at']);
                 $items['authorProfilePicture'] = $items['user']['profile_image_url'];
 
+                if (!isset($items['quoted_status']) && isset($items['retweeted_status']['quoted_status'])) {
+                    $items['quoted_status'] = $items['retweeted_status']['quoted_status'];
+                }
+
                 if (isset($items['quoted_status'])) {
                     $items['retweetAuthorName'] = $items['quoted_status']['user']['name'];
                     $items['retweetAuthorTwitterName'] = $items['quoted_status']['user']['name'];
