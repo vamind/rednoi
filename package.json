@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/petrvacha/rednoi.git"
+    "url": "git+https://github.com/vamind/rednoi.git"
   },
   "keywords": [
     "rednoi",
@@ -17,9 +17,9 @@
   "author": "Petr Vácha",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/petrvacha/rednoi/issues"
+    "url": "https://github.com/vamind/rednoi/issues"
   },
-  "homepage": "https://github.com/petrvacha/rednoi#readme",
+  "homepage": "https://github.com/vamind/rednoi#readme",
   "dependencies": {
     "colors": "^1.1.2",
     "concat": "^1.0.3",
