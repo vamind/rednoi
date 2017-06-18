@@ -33,6 +33,10 @@
             {% if items['media'] is defined and items['mediaTwitems'] is not defined %}
                 <img src="{{ items['media'] }}" class="picture">
             {% endif %}
+            <div class="edit">
+                <a class="rt" href="#">RT {{ items['retweet_count'] }}</a>
+                <a class="like" href="#">❤ {{ items['favorite_count'] }} ️</a>
+            </div>
         </div>
     {% endfor %}
 </div>
