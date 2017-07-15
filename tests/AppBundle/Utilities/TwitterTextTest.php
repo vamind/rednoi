@@ -1,10 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace tests\AppBundle\Utilities;
+namespace Tests\AppBundle\Utilities;
 
 use AppBundle\Utilities\TwitterText;
+use PHPUnit\Framework\TestCase;
 
-class TwitterTextTest extends \PHPUnit_Framework_TestCase {
+final class TwitterTextTest extends TestCase
+{
 
     /**
      * @dataProvider tweetProvider
