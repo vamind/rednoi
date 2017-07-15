@@ -29,9 +29,14 @@
         "symfony/phpunit-bridge": "^3.0",
         "phpunit/phpunit": "^6.2",
         "phpstan/phpstan": "^0.7",
-        "symplify/easy-coding-standard": "^2.1"
+        "symplify/easy-coding-standard": "^2.1",
+        "symplify/coding-standard": "^2.1"
     },
     "scripts": {
+        "all": ["phpunit", "@cs", "@ps"],
+        "cs": "ecs check src tests",
+        "fs": "ecs check src tests --fix",
+        "ps": "phpstan analyse src tests --level 7",
         "symfony-scripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
