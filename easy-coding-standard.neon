@@ -110,6 +110,7 @@ checkers:
     - SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
         usefulAnnotations:
+            - @Route
             - @todo
             - @dataProvider
         enableEachParameterAndReturnInspection: true

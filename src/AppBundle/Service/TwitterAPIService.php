@@ -1,48 +1,52 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace AppBundle\Service;
 
 use AppBundle\Utilities\TwitterText;
+use TwitterAPIExchange;
 
-
-class TwitterAPIService {
-
-    /** @const string */
-    const TWITTERCOM = "https://twitter.com/";
-
-    /** @var array $access */
-    private $access;
-
-    /** @var array $queries */
-    private $queries;
+class TwitterAPIService
+{
+    /**
+     * @var string
+     */
+    public const TWITTERCOM = 'https://twitter.com/';
 
     /**
-     * @param array $twitterAccess
-     * @param array $twitterQueries
+     * @var mixed[]
      */
-    public function __construct(array $twitterAccess, array $twitterQueries) {
+    private $access = [];
+
+    /**
+     * @var mixed[]
+     */
+    private $queries = [];
+
+    /**
+     * @param mixed[] $twitterAccess
+     * @param mixed[] $twitterQueries
+     */
+    public function __construct(array $twitterAccess, array $twitterQueries)
+    {
         $this->access = $twitterAccess;
         $this->queries = $twitterQueries;
     }
 
     /**
-     * @return mixed
-     * @throws \Exception
+     * @return mixed[]
      */
-    public function getData() : array {
-
-        $twitter = new \TwitterAPIExchange($this->access);
-        $endPoint = "https://api.twitter.com/1.1/search/tweets.json";
-        $requestMethod = "GET";
+    public function getData(): array
+    {
+        $twitter = new TwitterAPIExchange($this->access);
+        $endPoint = 'https://api.twitter.com/1.1/search/tweets.json';
+        $requestMethod = 'GET';
 
         $mergedArray = [];
 
         foreach ($this->queries as $query) {
-            $string = json_decode($twitter->setGetfield('?q=' . $query. '&tweet_mode=extended')
+            $string = json_decode($twitter->setGetfield('?q=' . $query . '&tweet_mode=extended')
                 ->buildOauth($endPoint, $requestMethod)
-                ->performRequest(),$assoc = TRUE);
-
+                ->performRequest(), $assoc = TRUE);
 
             foreach ($string['statuses'] as $i => $items) {
                 $items['query'] = $query;
@@ -52,7 +56,7 @@ class TwitterAPIService {
                 $items['time'] = TwitterText::timeSince($items['created_at']);
                 $items['authorProfilePicture'] = $items['user']['profile_image_url'];
 
-                if (!isset($items['quoted_status']) && isset($items['retweeted_status']['quoted_status'])) {
+                if (! isset($items['quoted_status']) && isset($items['retweeted_status']['quoted_status'])) {
                     $items['quoted_status'] = $items['retweeted_status']['quoted_status'];
                 }
 
@@ -60,9 +64,9 @@ class TwitterAPIService {
                     $items['retweetAuthorName'] = $items['quoted_status']['user']['name'];
                     $items['retweetAuthorTwitterName'] = $items['quoted_status']['user']['name'];
                     $items['retweetAuthorLink'] = self::TWITTERCOM . $items['quoted_status']['user']['screen_name'];
-                    $items['retweetLink'] = self::TWITTERCOM . $items['retweetAuthorLink'] . "/status/" . $items['quoted_status']['id_str'];
+                    $items['retweetLink'] = self::TWITTERCOM . $items['retweetAuthorLink'] . '/status/' . $items['quoted_status']['id_str'];
                     if (isset($items['quoted_status']['entities']['media'])) {
-                        $items['mediaTw'] = $items['quoted_status']['entities']['media'][0]["media_url_https"];
+                        $items['mediaTw'] = $items['quoted_status']['entities']['media'][0]['media_url_https'];
                     }
 
                     foreach ($items['quoted_status']['entities']['urls'] as $url) {
@@ -70,7 +74,7 @@ class TwitterAPIService {
                     }
 
                     $items['quoted_status']['full_text'] = TwitterText::processTweet($items['quoted_status']['full_text']);
-                    $items['quoted_status']['link'] = $items['retweetAuthorLink'] . "/status/" . $items['quoted_status']['id_str'];
+                    $items['quoted_status']['link'] = $items['retweetAuthorLink'] . '/status/' . $items['quoted_status']['id_str'];
                 }
 
                 if (isset($items['entities']['media'])) {
