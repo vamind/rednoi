@@ -49,6 +49,11 @@ twitter.queries:
     - 'min_retweets:30 min_replies:2 list:your_twitter_name/influencers -filter:replies'
     - 'min_replies:200 min_faves:100 list:your_twitter_name/news -filter:replies'
 ```
+
+In the end you should add your Twitter nickname:
+```
+twitter.me: '* from:your_twitter_nickname'
+```
 [Twitter Application Management]: https://apps.twitter.com/
 [Stack Overflow]: https://stackoverflow.com
 [The Search API]: https://dev.twitter.com/rest/public/search

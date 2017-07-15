@@ -11,14 +11,15 @@ var concat = require('gulp-concat');
 var paths = {
     styles: 'web/assets/css',
     js: 'web/assets/js',
-    nodejs: "node_modules",
+    nodejs: 'node_modules',
     build: 'web/www'
 };
 
 var jsFiles = [
     paths.nodejs + '/jquery/dist/jquery.min.js',
     paths.nodejs + '/twemoji/2/twemoji.min.js',
-    paths.js + '/main.js'
+    paths.js + '/main.js',
+    paths.js + '/twitter.js'
 ];
 
 var cssFile = paths.styles + '/style.css';

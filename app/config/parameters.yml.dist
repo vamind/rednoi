@@ -12,3 +12,5 @@ parameters:
 
     twitter.queries:
         - ~
+
+    twitter.me: ~
