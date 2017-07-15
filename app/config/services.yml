@@ -7,4 +7,4 @@ services:
         resource: ../../src/AppBundle
 
     AppBundle\Service\TwitterAPIService:
-        arguments: [ "%twitter.access%", "%twitter.queries%" ]
+        arguments: [ "%twitter.access%", "%twitter.queries%", "%twitter.me%" ]

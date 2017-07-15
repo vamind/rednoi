@@ -33,7 +33,7 @@ Then the queries might look like this:
 Yes, this is the worst part. Because you need to find the reducing level for each of your source.
 
 ## Installation
-RedNoi requires installed PHP 7.0+ and a web server. 
+RedNoi requires installed PHP 7.1+ and a web server.
 ```
 git clone git@github.com:vamind/rednoi.git && cd rednoi/
 composer update
