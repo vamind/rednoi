@@ -1,5 +1,7 @@
 # RedNoi
 
+[![Build Status](https://travis-ci.org/vamind/rednoi.svg?branch=master)](https://travis-ci.org/vamind/rednoi)
+
 Overwhelmed? Let RedNoi help you to overcome your information overload. 
 
 This tool is for advanced Twitter/TweetDeck users only, beginners might need to understand what Twitter/TweetDeck parameters are and how they work before using it.
