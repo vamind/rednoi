@@ -33,9 +33,15 @@
             {% if items['media'] is defined and items['mediaTwitems'] is not defined %}
                 <img src="{{ items['media'] }}" class="picture">
             {% endif %}
-            <div class="edit">
-                <a class="rt" href="#">RT {{ items['retweet_count'] }}</a>
-                <a class="like" href="#">❤ {{ items['favorite_count'] }} ️</a>
+            <div class="tweet-panel">
+                <a class="rt js-retweet{% if items['retweeted'] or items['retweeted_status'] is defined and items['retweeted_status']['retweeted'] %} active{% endif %}"
+                   data-id="{% if items['RT'] %}{{ items['retweeted_status']['id'] }}{% else %}{{items['id']}}{% endif %}" href="#">
+                    RT <span class="js-retweet-count">{% if items['RT'] %}{{ items['retweeted_status']['retweet_count'] }}{% else %}{{ items['retweet_count'] }}{% endif %}</span>
+                </a>
+                <a class="like js-like {{ items['id'] }}{% if items['favorited'] or items['retweeted_status'] is defined and items['retweeted_status']['favorited'] %} active{% endif %}"
+                   data-id="{% if items['RT'] %}{{ items['retweeted_status']['id'] }}{% else %}{{items['id']}}{% endif %}" href="#">
+                    ❤ <span class="js-like-count">{% if items['RT'] %}{{ items['retweeted_status']['favorite_count'] }}{% else %}{{ items['favorite_count'] }}{% endif %}</span>
+                ️</a>
             </div>
         </div>
     {% endfor %}
