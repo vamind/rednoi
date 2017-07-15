@@ -17,13 +17,91 @@ class TwitterAPIService {
     /** @var array $queries */
     private $queries;
 
+    /** @var array $me */
+    private $me;
+
+    /** @var \TwitterAPIExchange */
+    private $twitter;
+
+
     /**
      * @param array $twitterAccess
      * @param array $twitterQueries
+     * @param string $twitterMe
      */
-    public function __construct(array $twitterAccess, array $twitterQueries) {
+    public function __construct(array $twitterAccess, array $twitterQueries, string $twitterMe) {
         $this->access = $twitterAccess;
         $this->queries = $twitterQueries;
+        $this->me = $twitterMe;
+        $this->twitter = new \TwitterAPIExchange($this->access);
+    }
+
+    /**
+     * @param $endPoint
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
+    protected function callPost($endPoint, $id) : array {
+        $string = json_decode(
+            $this->twitter
+                ->buildOauth($endPoint, "POST")
+                ->setPostfields(['id' => $id])
+                ->performRequest(),$assoc = TRUE);
+
+        return $string;
+    }
+
+    /**
+     * @param $endPoint
+     * @return array
+     * @throws \Exception
+     */
+    protected function callGet($endPoint, $query) : array {
+        return json_decode($this->twitter
+            ->setGetfield('?q=' . $query . '&tweet_mode=extended')
+            ->buildOauth($endPoint, "GET")
+            ->performRequest(),$assoc = TRUE);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Exception
+     */
+    public function retweet($id) : array {
+        $endPoint = "https://api.twitter.com/1.1/statuses/retweet/" . $id . ".json";
+        return $this->callPost($endPoint, $id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Exception
+     */
+    public function unretweet($id) : array {
+        $endPoint = "https://api.twitter.com/1.1/statuses/unretweet/" . $id . ".json";
+        return $this->callPost($endPoint, $id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Exception
+     */
+    public function like($id) : array {
+        $endPoint = "https://api.twitter.com/1.1/favorites/create.json";
+        return $this->callPost($endPoint, $id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Exception
+     */
+    public function unlike($id) : array {
+        $endPoint = "https://api.twitter.com/1.1/favorites/destroy.json";
+        return $this->callPost($endPoint, $id);
     }
 
     /**
@@ -31,18 +109,13 @@ class TwitterAPIService {
      * @throws \Exception
      */
     public function getData() : array {
-
-        $twitter = new \TwitterAPIExchange($this->access);
         $endPoint = "https://api.twitter.com/1.1/search/tweets.json";
-        $requestMethod = "GET";
-
         $mergedArray = [];
+        $myRetweets = $this->getMyRetweets();
+        $myLikes = $this->getMyLikes();
 
         foreach ($this->queries as $query) {
-            $string = json_decode($twitter->setGetfield('?q=' . $query. '&tweet_mode=extended')
-                ->buildOauth($endPoint, $requestMethod)
-                ->performRequest(),$assoc = TRUE);
-
+            $string = $this->callGet($endPoint, $query);
 
             foreach ($string['statuses'] as $i => $items) {
                 $items['query'] = $query;
@@ -82,6 +155,13 @@ class TwitterAPIService {
                 }
 
                 if (isset($items['retweeted_status']['full_text'])) {
+                    if (in_array($items['retweeted_status']['id'], $myRetweets)) {
+                        $items['retweeted'] = TRUE;
+                    }
+                    if (in_array($items['retweeted_status']['id'], $myLikes)) {
+                        $items['favorited'] = TRUE;
+                    }
+
                     $items['full_text'] = $items['retweeted_status']['full_text'];
                     $items['RT'] = TRUE;
                     $items['originRetweetAuthorName'] = $items['retweeted_status']['user']['name'];
@@ -96,6 +176,12 @@ class TwitterAPIService {
                         $items['full_text'] = str_replace($url['url'], $url['expanded_url'], $items['full_text']);
                     }
                 } else {
+                    if (in_array($items['id'], $myRetweets)) {
+                        $items['retweeted'] = TRUE;
+                    }
+                    if (in_array($items['id'], $myLikes)) {
+                        $items['favorited'] = TRUE;
+                    }
                     $items['RT'] = FALSE;
                 }
 
@@ -106,5 +192,35 @@ class TwitterAPIService {
         krsort($mergedArray, SORT_NUMERIC);
 
         return $mergedArray;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getMyRetweets() : array {
+        $endPoint = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+        $string = $this->callGet($endPoint, $this->me);
+
+        $retweets = [];
+        foreach($string as $items) {
+            if (isset($items['retweeted_status'])) {
+                $retweets[] = $items['retweeted_status']['id'];
+            }
+        }
+        return $retweets;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getMyLikes() : array {
+        $endPoint = 'https://api.twitter.com/1.1/favorites/list.json';
+        $string = $this->callGet($endPoint, $this->me);
+
+        $favorited = [];
+        foreach($string as $items) {
+            $favorited[] = $items['id'];
+        }
+        return $favorited;
     }
 }
