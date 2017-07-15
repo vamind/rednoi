@@ -1,21 +1,26 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace AppBundle\Service;
 
 use AppBundle\Utilities\TwitterText;
+use TwitterAPIExchange;
 
+class TwitterAPIService
+{
+    /**
+     * @var string
+     */
+    public const TWITTERCOM = 'https://twitter.com/';
 
-class TwitterAPIService {
+    /**
+     * @var mixed[]
+     */
+    private $access = [];
 
-    /** @const string */
-    const TWITTERCOM = "https://twitter.com/";
-
-    /** @var array $access */
-    private $access;
-
-    /** @var array $queries */
-    private $queries;
+    /**
+     * @var mixed[]
+     */
+    private $queries = [];
 
     /** @var array $me */
     private $me;
@@ -25,8 +30,8 @@ class TwitterAPIService {
 
 
     /**
-     * @param array $twitterAccess
-     * @param array $twitterQueries
+     * @param mixed[] $twitterAccess
+     * @param mixed[] $twitterQueries
      * @param string $twitterMe
      */
     public function __construct(array $twitterAccess, array $twitterQueries, string $twitterMe) {
@@ -125,7 +130,7 @@ class TwitterAPIService {
                 $items['time'] = TwitterText::timeSince($items['created_at']);
                 $items['authorProfilePicture'] = $items['user']['profile_image_url'];
 
-                if (!isset($items['quoted_status']) && isset($items['retweeted_status']['quoted_status'])) {
+                if (! isset($items['quoted_status']) && isset($items['retweeted_status']['quoted_status'])) {
                     $items['quoted_status'] = $items['retweeted_status']['quoted_status'];
                 }
 
@@ -133,9 +138,9 @@ class TwitterAPIService {
                     $items['retweetAuthorName'] = $items['quoted_status']['user']['name'];
                     $items['retweetAuthorTwitterName'] = $items['quoted_status']['user']['name'];
                     $items['retweetAuthorLink'] = self::TWITTERCOM . $items['quoted_status']['user']['screen_name'];
-                    $items['retweetLink'] = self::TWITTERCOM . $items['retweetAuthorLink'] . "/status/" . $items['quoted_status']['id_str'];
+                    $items['retweetLink'] = self::TWITTERCOM . $items['retweetAuthorLink'] . '/status/' . $items['quoted_status']['id_str'];
                     if (isset($items['quoted_status']['entities']['media'])) {
-                        $items['mediaTw'] = $items['quoted_status']['entities']['media'][0]["media_url_https"];
+                        $items['mediaTw'] = $items['quoted_status']['entities']['media'][0]['media_url_https'];
                     }
 
                     foreach ($items['quoted_status']['entities']['urls'] as $url) {
@@ -143,7 +148,7 @@ class TwitterAPIService {
                     }
 
                     $items['quoted_status']['full_text'] = TwitterText::processTweet($items['quoted_status']['full_text']);
-                    $items['quoted_status']['link'] = $items['retweetAuthorLink'] . "/status/" . $items['quoted_status']['id_str'];
+                    $items['quoted_status']['link'] = $items['retweetAuthorLink'] . '/status/' . $items['quoted_status']['id_str'];
                 }
 
                 if (isset($items['entities']['media'])) {
@@ -224,3 +229,4 @@ class TwitterAPIService {
         return $favorited;
     }
 }
+

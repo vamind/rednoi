@@ -1,20 +1,26 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace tests\AppBundle\Utilities;
+namespace Tests\AppBundle\Utilities;
 
 use AppBundle\Utilities\TwitterText;
+use PHPUnit\Framework\TestCase;
 
-class TwitterTextTest extends \PHPUnit_Framework_TestCase {
-
+final class TwitterTextTest extends TestCase
+{
     /**
      * @dataProvider tweetProvider
      */
-    public function testProcessTweet($tweet, $retweet, $expected) {
+    public function testProcessTweet(string $tweet, bool $retweet, string $expected): void
+    {
         $result = TwitterText::processTweet($tweet, $retweet);
-        $this->assertEquals($expected, $result);
+        $this->assertSame($expected, $result);
     }
 
-    public function tweetProvider() {
+    /**
+     * @return mixed[]
+     */
+    public function tweetProvider(): array
+    {
         return [
             ['', FALSE, ''],
             ['abc abc', FALSE, 'abc abc'],
@@ -43,7 +49,6 @@ class TwitterTextTest extends \PHPUnit_Framework_TestCase {
             [' https://t.co/Cz17jU4dAL https://t.co/Cz17jU4dAL ', FALSE, '   '],
             [' https://bloom.bg/2qDikV9 https://t.co/dfBo5KFhvH ', FALSE, ' <a href="https://bloom.bg/2qDikV9" target="_blank">bloom.bg/2qDikV9</a>  '],
 
-
             ['https://twitter.com/BarackObama/status/859855649689174019', TRUE, ''],
 
             ['https://www.rednoi.net/?utm_medium=flow&red=true&article_id=5456#omg&utm_medium=email', FALSE, '<a href="https://www.rednoi.net/?red=true&article_id=5456#omg" target="_blank">rednoi.net/?red=true&article_id=5456#omg</a>'],
@@ -52,5 +57,4 @@ class TwitterTextTest extends \PHPUnit_Framework_TestCase {
             ['https://www.rednoi.net/?utm_medium=encoding%20space%20works&encoding=works%20also', FALSE, '<a href="https://www.rednoi.net/?encoding=works%20also" target="_blank">rednoi.net/?encoding=works%20also</a>'],
         ];
     }
-
 }

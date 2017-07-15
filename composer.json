@@ -1,10 +1,9 @@
 {
     "name": "petr/rednoi",
-    "license": "proprietary",
-    "type": "project",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "AppBundle\\": "src/AppBundle"
         },
         "classmap": [
             "app/AppKernel.php",
@@ -13,31 +12,31 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests"
         }
     },
     "require": {
-        "php": ">=5.5.9",
-        "symfony/symfony": "3.2.*",
-        "doctrine/orm": "^2.5",
-        "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-cache-bundle": "^1.2",
-        "symfony/swiftmailer-bundle": "^2.3.10",
-        "symfony/monolog-bundle": "^3.0.2",
-        "symfony/polyfill-apcu": "^1.0",
+        "php": "^7.0",
+        "symfony/symfony": "^3.3",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0",
-        "twig/twig": "^1.0||^2.0",
+        "incenteev/composer-parameter-handler": "^2.1",
+        "twig/twig": "^2.0",
         "j7mbo/twitter-api-php": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "phpunit/phpunit": "5.7.x",
-        "phpstan/phpstan": "^0.7.0"
+        "phpunit/phpunit": "^6.2",
+        "phpstan/phpstan": "^0.7",
+        "symplify/easy-coding-standard": "^2.1",
+        "symplify/coding-standard": "^2.1"
     },
     "scripts": {
+        "all": ["phpunit", "@cs", "@ps"],
+        "cs": "ecs check src tests",
+        "fs": "ecs check src tests --fix",
+        "ps": "phpstan analyse src tests --level 7",
         "symfony-scripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",

@@ -1,4 +1,10 @@
 services:
-  twitter.api:
-    class: AppBundle\Service\TwitterAPIService
-    arguments: [ "%twitter.access%", "%twitter.queries%", "%twitter.me%"  ]
+    _defaults:
+        autowire: true
+
+    # Use PSR-4 based
+    AppBundle\:
+        resource: ../../src/AppBundle
+
+    AppBundle\Service\TwitterAPIService:
+        arguments: [ "%twitter.access%", "%twitter.queries%" ]

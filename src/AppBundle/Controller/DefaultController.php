@@ -1,62 +1,76 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\TwitterAPIService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DefaultController extends Controller
+final class DefaultController extends Controller
 {
+    /**
+     * @var TwitterAPIService
+     */
+    private $twitterAPIService;
+
+    public function __construct(TwitterAPIService $twitterAPIService)
+    {
+        $this->twitterAPIService = $twitterAPIService;
+    }
+
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(): Response
     {
-        $tweets = $this->container->get('twitter.api')->getData();
         return $this->render('AppBundle:default:index.html.twig', [
-            'tweets' => $tweets,
+            'tweets' => $this->twitterAPIService->getData(),
         ]);
     }
 
     /**
      * @Route("/retweet", name="retweet", methods={"POST"})
      */
-    public function retweetAction(Request $request)
+    public function retweetAction(Request $request): Response
     {
         $id = $request->get('id');
-        $data = $this->container->get('twitter.api')->retweet($id);
-        return new Response(json_encode($data), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        $data = $this->twitterAPIService->retweet($id);
+        
+        return new JsonResponse($data);
     }
 
     /**
      * @Route("/like", name="like", methods={"POST"})
      */
-    public function likeAction(Request $request)
+    public function likeAction(Request $request): Response
     {
         $id = $request->get('id');
-        $data = $this->container->get('twitter.api')->like($id);
-        return new Response(json_encode($data), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        $data = $this->twitterAPIService->like($id);
+        
+        return new JsonResponse($data);
     }
 
     /**
      * @Route("/unretweet", name="unretweet", methods={"POST"})
      */
-    public function unretweetAction(Request $request)
+    public function unretweetAction(Request $request): Response
     {
         $id = $request->get('id');
-        $data = $this->container->get('twitter.api')->unretweet($id);
-        return new Response(json_encode($data), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        $data = $this->twitterAPIService->unretweet($id);
+        
+        return new JsonResponse($data);
     }
 
     /**
      * @Route("/unlike", name="unlike", methods={"POST"})
      */
-    public function unlikeAction(Request $request)
+    public function unlikeAction(Request $request): Response
     {
         $id = $request->get('id');
-        $data = $this->container->get('twitter.api')->unlike($id);
-        return new Response(json_encode($data), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        $data = $this->twitterAPIService->unlike($id);
+        
+        return new JsonResponse($data);
     }
 }
