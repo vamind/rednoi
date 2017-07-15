@@ -23,9 +23,9 @@ final class TwitterAPIService
     private $queries = [];
 
     /**
-     * @var array
+     * @var mixed[]
      */
-    private $me;
+    private $me = [];
 
     /**
      * @var \TwitterAPIExchange
@@ -45,10 +45,9 @@ final class TwitterAPIService
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * @return mixed[]
      */
-    public function retweet($id): array
+    public function retweet(int $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/statuses/retweet/' . $id . '.json';
 
@@ -56,10 +55,9 @@ final class TwitterAPIService
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * @return mixed[]
      */
-    public function unretweet($id): array
+    public function unretweet(int $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/statuses/unretweet/' . $id . '.json';
 
@@ -67,10 +65,9 @@ final class TwitterAPIService
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * @return mixed[]
      */
-    public function like($id): array
+    public function like(int $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/favorites/create.json';
 
@@ -78,10 +75,9 @@ final class TwitterAPIService
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * @return mixed[]
      */
-    public function unlike($id): array
+    public function unlike(int $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/favorites/destroy.json';
 
@@ -89,7 +85,7 @@ final class TwitterAPIService
     }
 
     /**
-     * @return mixed
+     * @return mixed[]
      */
     public function getData(): array
     {
@@ -179,11 +175,9 @@ final class TwitterAPIService
     }
 
     /**
-     * @param $endPoint
-     * @param $id
-     * @return array
+     * @return mixed[]
      */
-    protected function callPost($endPoint, $id): array
+    protected function callPost(string $endPoint, int $id): array
     {
         $string = json_decode(
             $this->twitter
@@ -195,10 +189,9 @@ final class TwitterAPIService
     }
 
     /**
-     * @param $endPoint
-     * @return array
+     * @return mixed[]
      */
-    protected function callGet($endPoint, $query): array
+    protected function callGet(string $endPoint, string $query): array
     {
         return json_decode($this->twitter
             ->setGetfield('?q=' . $query . '&tweet_mode=extended')
@@ -207,7 +200,7 @@ final class TwitterAPIService
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     protected function getMyRetweets(): array
     {
@@ -225,7 +218,7 @@ final class TwitterAPIService
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     protected function getMyLikes(): array
     {
