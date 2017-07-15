@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Service\TwitterAPIService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class DefaultController extends Controller
 {
@@ -37,7 +37,7 @@ final class DefaultController extends Controller
     {
         $id = $request->get('id');
         $data = $this->twitterAPIService->retweet($id);
-        
+
         return new JsonResponse($data);
     }
 
@@ -48,7 +48,7 @@ final class DefaultController extends Controller
     {
         $id = $request->get('id');
         $data = $this->twitterAPIService->like($id);
-        
+
         return new JsonResponse($data);
     }
 
@@ -59,7 +59,7 @@ final class DefaultController extends Controller
     {
         $id = $request->get('id');
         $data = $this->twitterAPIService->unretweet($id);
-        
+
         return new JsonResponse($data);
     }
 
@@ -70,7 +70,7 @@ final class DefaultController extends Controller
     {
         $id = $request->get('id');
         $data = $this->twitterAPIService->unlike($id);
-        
+
         return new JsonResponse($data);
     }
 }
