@@ -47,7 +47,7 @@ final class TwitterAPIService
     /**
      * @return mixed[]
      */
-    public function retweet(int $id): array
+    public function retweet(string $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/statuses/retweet/' . $id . '.json';
 
@@ -57,7 +57,7 @@ final class TwitterAPIService
     /**
      * @return mixed[]
      */
-    public function unretweet(int $id): array
+    public function unretweet(string $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/statuses/unretweet/' . $id . '.json';
 
@@ -67,7 +67,7 @@ final class TwitterAPIService
     /**
      * @return mixed[]
      */
-    public function like(int $id): array
+    public function like(string $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/favorites/create.json';
 
@@ -77,7 +77,7 @@ final class TwitterAPIService
     /**
      * @return mixed[]
      */
-    public function unlike(int $id): array
+    public function unlike(string $id): array
     {
         $endPoint = 'https://api.twitter.com/1.1/favorites/destroy.json';
 
@@ -177,12 +177,12 @@ final class TwitterAPIService
     /**
      * @return mixed[]
      */
-    protected function callPost(string $endPoint, int $id): array
+    protected function callPost(string $endPoint, string $id): array
     {
         $string = json_decode(
             $this->twitter
                 ->buildOauth($endPoint, 'POST')
-                ->setPostfields(['id' => $id])
+                ->setPostfields(['id' => (int) $id])
                 ->performRequest(), $assoc = TRUE);
 
         return $string;
