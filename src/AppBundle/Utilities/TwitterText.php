@@ -24,12 +24,12 @@ class TwitterText
         for ($i = 0; $i < 7; ++$i) {
             $seconds = $chunks[$i][0];
             $name = $chunks[$i][1];
-            if (($count = floor($since / $seconds)) > 0) {
+            if (($count = (int) floor($since / $seconds)) !== 0) {
                 break;
             }
         }
 
-        $string = ($count === 1.0) ? '1 ' . $name . ' ago' : $count . ' ' . $name . 's ago';
+        $string = ($count === 1) ? '1 ' . $name . ' ago' : $count . ' ' . $name . 's ago';
 
         return $string;
     }
