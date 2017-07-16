@@ -3,6 +3,8 @@
 namespace Tests\AppBundle\Utilities;
 
 use AppBundle\Utilities\TwitterText;
+use DateInterval;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 final class TwitterTextTest extends TestCase
@@ -56,5 +58,39 @@ final class TwitterTextTest extends TestCase
             ['https://www.rednoi.net/?utm_medium=flow&articleid=1235&utm_medium=email', FALSE, '<a href="https://www.rednoi.net/?articleid=1235" target="_blank">rednoi.net/?articleid=1235</a>'],
             ['https://www.rednoi.net/?utm_medium=encoding%20space%20works&encoding=works%20also', FALSE, '<a href="https://www.rednoi.net/?encoding=works%20also" target="_blank">rednoi.net/?encoding=works%20also</a>'],
         ];
+    }
+
+    /**
+     * @dataProvider timeProvider
+     */
+    public function testTimeSince(string $time, string $expected): void
+    {
+        $result = TwitterText::timeSince($time);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function timeProvider(): array
+    {
+        $datePrototype = new DateTime;
+        $times = [
+            '16 hours' => '16 hours ago',
+            '1 day' => '1 day ago',
+            '2 days' => '2 days ago',
+            '6 months' => '6 months ago',
+            '7 years' => '7 years ago',
+        ];
+
+        $output = [];
+
+        foreach ($times as $shift => $expectation) {
+            $date = clone $datePrototype;
+            $date->sub(DateInterval::createFromDateString($shift));
+            $output[] = [$date->format('D M j H:i:s +0000 Y'), $expectation];
+        }
+
+        return $output;
     }
 }
