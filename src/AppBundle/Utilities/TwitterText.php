@@ -18,6 +18,9 @@ class TwitterText
             [1, 'second'],
         ];
 
+        $count = 0;
+        $name = '';
+
         for ($i = 0, $j = count($chunks); $i < $j; ++$i) {
             $seconds = $chunks[$i][0];
             $name = $chunks[$i][1];
