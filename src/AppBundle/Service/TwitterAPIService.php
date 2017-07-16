@@ -23,12 +23,12 @@ final class TwitterAPIService
     private $queries = [];
 
     /**
-     * @var mixed[]
+     * @var string
      */
-    private $me = [];
+    private $me;
 
     /**
-     * @var \TwitterAPIExchange
+     * @var TwitterAPIExchange
      */
     private $twitter;
 
