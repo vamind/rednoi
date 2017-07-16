@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/vamind/rednoi.svg?branch=master)](https://travis-ci.org/vamind/rednoi)
 [![Coverage Status](https://coveralls.io/repos/github/vamind/rednoi/badge.svg)](https://coveralls.io/github/vamind/rednoi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Database: no](https://img.shields.io/badge/database-no-brightgreen.svg)](http://i0.kym-cdn.com/photos/images/newsfeed/000/617/851/56d.gif)
 
 Overwhelmed? Let RedNoi help you to overcome your information overload. 
 
