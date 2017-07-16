@@ -1,5 +1,5 @@
 {
-    "name": "petr/rednoi",
+    "name": "rednoi/rednoi",
     "license": "MIT",
     "autoload": {
         "psr-4": {
