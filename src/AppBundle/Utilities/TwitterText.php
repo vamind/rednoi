@@ -9,11 +9,11 @@ class TwitterText
         $since = time() - strtotime($time);
 
         $chunks = [
-            [60 * 60 * 24 * 365, 'year'],
-            [60 * 60 * 24 * 30, 'month'],
-            [60 * 60 * 24 * 7, 'week'],
-            [60 * 60 * 24, 'day'],
-            [60 * 60, 'hour'],
+            [31536000, 'year'],
+            [2592000, 'month'],
+            [604800, 'week'],
+            [86400, 'day'],
+            [3600, 'hour'],
             [60, 'minute'],
             [1, 'second'],
         ];
@@ -21,15 +21,15 @@ class TwitterText
         $count = 0;
         $name = '';
 
-        for ($i = 0, $j = count($chunks); $i < $j; ++$i) {
+        for ($i = 0; $i < 7; ++$i) {
             $seconds = $chunks[$i][0];
             $name = $chunks[$i][1];
-            if (($count = floor($since / $seconds)) !== 0) {
+            if (($count = floor($since / $seconds)) > 0) {
                 break;
             }
         }
 
-        $string = ($count === 1) ? '1 ' . $name . ' ago' : $count . ' ' . $name . 's ago';
+        $string = ($count === 1.0) ? '1 ' . $name . ' ago' : $count . ' ' . $name . 's ago';
 
         return $string;
     }
