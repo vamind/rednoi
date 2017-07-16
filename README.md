@@ -1,6 +1,7 @@
 # RedNoi
 
 [![Build Status](https://travis-ci.org/vamind/rednoi.svg?branch=master)](https://travis-ci.org/vamind/rednoi)
+[![Coverage Status](https://coveralls.io/repos/github/vamind/rednoi/badge.svg)](https://coveralls.io/github/vamind/rednoi)
 
 Overwhelmed? Let RedNoi help you to overcome your information overload. 
 
