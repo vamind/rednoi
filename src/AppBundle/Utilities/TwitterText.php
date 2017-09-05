@@ -41,7 +41,8 @@ class TwitterText
         }
 
         $text = preg_replace('/https?:\/\/t\.co\/[^\s]+/', '', $text);
-        $text = preg_replace('/([^\/])@([^\s\,\!\?\)\”\"]+[^\s\,\!\?\)\.\”\"]+)/', '\1<a href="https://twitter.com/\2" class="at" target="_blank">@</a><a href="https://twitter.com/\2" target="_blank">\2</a>', $text);
+        $text = preg_replace('/([^\/])@([^\s\,\.\!\?\)\”\"]+[^\s\,\!\?\)\.\”\"]+)/', '\1<a href="https://twitter.com/\2" class="at" target="_blank">@</a><a href="https://twitter.com/\2" target="_blank">\2</a>', $text);
+        $text = preg_replace('/^@([^\s\,\.\!\?\)\”\"]+[^\s\,\!\?\)\.\”\"]+)/', '<a href="https://twitter.com/\1" class="at" target="_blank">@</a><a href="https://twitter.com/\1" target="_blank">\1</a>', $text);
         $text = preg_replace('/(?<!href=\")(http:\/\/|https:\/\/)(www\.)?([^\s\”\"]+)([^\s\”\"\.\,\!\-\)\(]+)/', '<a href="\1\2\3\4" target="_blank">\3\4</a>', $text);
 
         $text = preg_replace('/utm[_a-z0-9=%]+&?/', '', $text);

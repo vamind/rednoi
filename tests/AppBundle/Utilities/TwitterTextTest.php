@@ -57,6 +57,10 @@ final class TwitterTextTest extends TestCase
             ['https://www.rednoi.net/?articleid=1235&utm_medium=flow&utm_medium=email', FALSE, '<a href="https://www.rednoi.net/?articleid=1235" target="_blank">rednoi.net/?articleid=1235</a>'],
             ['https://www.rednoi.net/?utm_medium=flow&articleid=1235&utm_medium=email', FALSE, '<a href="https://www.rednoi.net/?articleid=1235" target="_blank">rednoi.net/?articleid=1235</a>'],
             ['https://www.rednoi.net/?utm_medium=encoding%20space%20works&encoding=works%20also', FALSE, '<a href="https://www.rednoi.net/?encoding=works%20also" target="_blank">rednoi.net/?encoding=works%20also</a>'],
+
+            ['abc @user abc', FALSE, 'abc <a href="https://twitter.com/user" class="at" target="_blank">@</a><a href="https://twitter.com/user" target="_blank">user</a> abc'],
+            ['.@user. abc', FALSE, '.<a href="https://twitter.com/user" class="at" target="_blank">@</a><a href="https://twitter.com/user" target="_blank">user</a>. abc'],
+            ['@user.abc', FALSE, '<a href="https://twitter.com/user" class="at" target="_blank">@</a><a href="https://twitter.com/user" target="_blank">user</a>.abc'],
         ];
     }
 
