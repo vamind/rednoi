@@ -24,7 +24,6 @@ checkers:
     - PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\LowercaseDeclarationSniff
     - Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff
     - SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEqualOperatorsSniff
-    - SlevomatCodingStandard\Sniffs\ControlStructures\YodaComparisonSniff
     - SlevomatCodingStandard\Sniffs\Exceptions\DeadCatchSniff
     - SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff
 
