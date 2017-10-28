@@ -147,6 +147,7 @@ final class TwitterAPIService
                     $items['originRetweetAuthorName'] = $items['retweeted_status']['user']['name'];
                     $items['originRetweetAuthorTwitterName'] = $items['retweeted_status']['user']['screen_name'];
                     $items['originRetweetAuthorLink'] = self::TWITTERCOM . $items['retweeted_status']['user']['screen_name'];
+                    $items['id'] = $items['retweeted_status']['id'];
 
                     if (isset($items['retweeted_status']['entities']['media'])) {
                         $items['media'] = $items['retweeted_status']['entities']['media'][0]['media_url'];
